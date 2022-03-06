@@ -11,6 +11,9 @@ public class Company {
 		this.name = name;
 		id++;
 	}
+	public String getName() {
+		return name;
+	}
 	public int getId() {
 		return this.getId();
 	}

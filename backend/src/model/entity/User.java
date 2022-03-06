@@ -1,7 +1,9 @@
 package model.entity;
 
+import java.util.Date;
 import java.util.List;
 
+import model.item.Deposit;
 import model.item.Gift;
 import model.item.Meal;
 
@@ -15,6 +17,9 @@ public class User {
 	public User(String name) {
 		this.name = name;
 		id++;
+	}
+	public String getName() {
+		return name;
 	}
 	public int getId() {
 		return id;
@@ -37,4 +42,17 @@ public class User {
 		Meal meal = new Meal(id, companyId, amount);
 		meals.add(meal);
 	}
+	public float getDepositsBalance(List<Deposit> deposits) {
+		Date today = new Date();
+		
+		float result = 0;
+		for(Deposit depo : this.meals) {
+			int dateComparator = today.compareTo(depo.getExpirationDate());
+			if(dateComparator >= 0) {
+				result += depo.getMount();
+			}
+		}
+		return result;
+	}
+	
 }
