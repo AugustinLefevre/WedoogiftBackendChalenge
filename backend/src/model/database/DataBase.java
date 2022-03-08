@@ -4,7 +4,11 @@ import java.util.HashMap;
 
 import model.entity.Company;
 import model.entity.User;
-
+/**
+ * used to simulate a DB
+ * @author augustin.lefevre
+ *
+ */
 public class DataBase {
 	private static DataBase instance;
 	private HashMap<Integer, Company> companies;
@@ -17,8 +21,9 @@ public class DataBase {
 	public User getUserById(int id){
 		return this.users.get(id);
 	}
-	public void addUser(User user) {
+	public void addUser(User user) {		
 		this.users.put(user.getId(), user);
+		
 	}
 	public Company getCompanyById(int id){
 		return this.companies.get(id);
@@ -28,7 +33,8 @@ public class DataBase {
 	}
 	public static DataBase getInstance() {
 		if(instance == null) {
-			return new DataBase();
+			instance = new DataBase();
+			return instance;
 		}
 		else {
 			return instance;

@@ -3,19 +3,29 @@ package model.entity;
 import model.database.DataBase;
 
 public class Company {
-	private static int id;
+	private static int countId;
+	private int id;
 	private String name;
 	private float balance;
 	
 	public Company(String name) {
+		
 		this.name = name;
-		id++;
+		id = countId++;
+		DataBase.getInstance().addCompany(this);
 	}
 	public String getName() {
 		return name;
 	}
 	public int getId() {
-		return this.getId();
+		return id;
+	}
+	public void increaseBalance(float amount) {
+		if(amount > 0)
+			this.balance += amount;
+	}
+	public float getBalance() {
+		return this.balance;
 	}
 	/**
 	 * send gift for a user if the company balance is sufficient to complete the transaction
@@ -23,7 +33,8 @@ public class Company {
 	 * @param gift amount
 	 */
 	public void sendGift(int userId, float amount) {
-		if(balance < 0 && amount <= balance) {
+		
+		if(balance > 0 && amount <= balance && amount > 0) {
 			DataBase database = DataBase.getInstance();
 			User user = database.getUserById(userId);
 			user.addGift(id, amount);
@@ -36,7 +47,7 @@ public class Company {
 	 * @param meal amount
 	 */
 	public void sendMeal(int userId, float amount) {
-		if(balance < 0 && amount <= balance) {
+		if(balance > 0 && amount <= balance && amount > 0) {
 			DataBase database = DataBase.getInstance();
 			User user = database.getUserById(userId);
 			user.addMeal(id, amount);

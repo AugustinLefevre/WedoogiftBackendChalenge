@@ -3,7 +3,8 @@ package model.item;
 import java.util.Date;
 
 public abstract class Deposit {
-	private static int id;
+	private static int countId = 0;
+	private int id;
 	private int issuingCompanyId;
 	private int userId;
 	private float amount;
@@ -14,11 +15,20 @@ public abstract class Deposit {
 		this.userId = userId;
 		this.issuingCompanyId = issuingCompanyId;
 		this.creationDate = new Date();
+		this.amount = amount;
 		setExpirationDate();
-		id++;
+		id = countId++;
 	}
-	public static int getId() {
-		return id;
+	public Deposit(int userId, int issuingCompanyId, float amount, Date creationDate) {
+		this.userId = userId;
+		this.issuingCompanyId = issuingCompanyId;
+		this.creationDate = creationDate;
+		this.amount = amount;
+		setExpirationDate();
+		id = countId++;
+	}
+	public int getId() {
+		return this.id;
 	}
 	public Date getCreationDate() {
 		return creationDate;
@@ -34,7 +44,7 @@ public abstract class Deposit {
 	public Date getExpirationDate() {
 		return expirationDate;
 	}
-	public float getMount() {
+	public float getAmount() {
 		return this.amount;
 	}
 }
